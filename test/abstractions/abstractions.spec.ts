@@ -20,14 +20,13 @@ describe("Service classes tests", () => {
 
     client = factory.create({
       connectionString: "foo",
-      containerName: "bar",
     });
 
     expect(client).to.not.eq(undefined);
   });
 
   it("gets a container reference", () => {
-    container = client.getContainer();
+    container = client.getContainer("bar");
     expect(container).to.not.eq(undefined);
   });
 
