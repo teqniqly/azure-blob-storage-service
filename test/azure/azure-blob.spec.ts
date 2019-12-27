@@ -21,7 +21,19 @@ describe("Azure blob storage integration tests", () => {
     blobClient = await new AzureBlobClientFactory().createClientAsync({connectionString});
     container = await blobClient.getContainerAsync(containerName);
     const containerExists = await container.existsAsync();
+
+    expect(containerExists).to.eq(false);
+  });
+
+  it("creates the container", async () => {
+    const response = await blobClient.createContainerAsync(containerName);
+    const containerExists = await container.existsAsync();
+
     expect(containerExists).to.eq(true);
+    expect(response.date).to.not.eq(undefined);
+    expect(response.etag).to.not.eq(undefined);
+    expect(response.requestId).to.not.eq(undefined);
+    expect(response.lastModified).to.not.eq(undefined);
   });
 
   it("uploads a blob to storage", async () => {
@@ -54,6 +66,15 @@ describe("Azure blob storage integration tests", () => {
   it("deletes the uploaded blob from storage", async () => {
     const response = await container.deleteBlobAsync(blobPath);
 
+    expect(response.date).to.not.eq(undefined);
+    expect(response.requestId).to.not.eq(undefined);
+  });
+
+  it("deletes the container", async () => {
+    const response = await blobClient.deleteContainerAsync(containerName);
+    const containerExists = await container.existsAsync();
+
+    expect(containerExists).to.eq(false);
     expect(response.date).to.not.eq(undefined);
     expect(response.requestId).to.not.eq(undefined);
   });
