@@ -2,8 +2,8 @@ import { BlobServiceClient, ContainerClient } from "@azure/storage-blob";
 import { IBlobClient } from "../abstractions/blob-client";
 import { IBlobContainer } from "../abstractions/blob-container";
 import { ICreateContainerResponse } from "../abstractions/create-container-response";
-import { AzureBlobContainer } from "./azure-blob-container";
 import { IDeleteContainerResponse } from "../abstractions/delete-container-response";
+import { AzureBlobContainer } from "./azure-blob-container";
 
 export class AzureBlobClient implements IBlobClient {
   constructor(private client: BlobServiceClient) {
