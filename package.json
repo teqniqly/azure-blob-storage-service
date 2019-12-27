@@ -1,7 +1,8 @@
 {
   "name": "@teqniqly/azure-blob-storage-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An abstraction over the Javascript Azure Blob Storage SDK making for easier integration.",
+  "keywords": ["azure", "blob", "storage", "sdk"],
   "scripts": {
     "test": "node_modules/.bin/mocha --watch-extensions ts --watch -r ts-node/register test/**/*.spec.ts",
     "coverage": "nyc node_modules/.bin/mocha -r ts-node/register test/**/*.spec.ts",
