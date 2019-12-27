@@ -3,6 +3,7 @@ import { IBlobClient } from "../abstractions/blob-client";
 import { IBlobContainer } from "../abstractions/blob-container";
 import { ICreateContainerResponse } from "../abstractions/create-container-response";
 import { AzureBlobContainer } from "./azure-blob-container";
+import { IDeleteContainerResponse } from "../abstractions/delete-container-response";
 
 export class AzureBlobClient implements IBlobClient {
   constructor(private client: BlobServiceClient) {
@@ -23,6 +24,17 @@ export class AzureBlobClient implements IBlobClient {
       lastModified: response.lastModified,
       requestId: response.requestId,
     } as ICreateContainerResponse));
+  }
+
+  public async deleteContainerAsync(containerName: string): Promise<IDeleteContainerResponse> {
+    const containerClient = await this._getContainerReference(containerName);
+    const response = await containerClient.delete();
+
+    return new Promise<IDeleteContainerResponse>((resolve) => resolve({
+      date: response.date,
+      requestId: response.requestId,
+    } as IDeleteContainerResponse));
+
   }
 
   private async _getContainerReference(containerName: string): Promise<ContainerClient> {

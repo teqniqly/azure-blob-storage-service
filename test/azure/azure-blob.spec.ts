@@ -69,4 +69,13 @@ describe("Azure blob storage integration tests", () => {
     expect(response.date).to.not.eq(undefined);
     expect(response.requestId).to.not.eq(undefined);
   });
+
+  it("deletes the container", async () => {
+    const response = await blobClient.deleteContainerAsync(containerName);
+    const containerExists = await container.existsAsync();
+
+    expect(containerExists).to.eq(false);
+    expect(response.date).to.not.eq(undefined);
+    expect(response.requestId).to.not.eq(undefined);
+  });
 });
